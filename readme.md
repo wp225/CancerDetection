@@ -1,3 +1,16 @@
+## Workflows
+1. config.yaml
+2. secrets.yaml
+3. params.yaml
+4. entity
+5. configuration.py in src
+6. componenets
+7. pipeline
+8. main.py
+9. dvc.yaml
+
+
+
 DAgs Hub
 
 MLFLOW_TRACKING_URI=https://dagshub.com/georgejoshi10/MLflow.mlflow \
