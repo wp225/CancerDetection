@@ -1,21 +1,28 @@
 import mlflow
-
+import os
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_diabetes
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error, r2_score
+import dagshub
+dagshub.init(repo_owner='georgejoshi10', repo_name='MLflow', mlflow=True)
 
-mlflow.autolog()
-dags_url = 'https://dagshub.com/georgejoshi10/MLflow.mlflow'
-mlflow.set_tracking_uri(dags_url)
+
+mlflow.set_tracking_uri('https://dagshub.com/georgejoshi10/MLflow.mlflow')
+# mlflow.set_tracking_uri('http://ec2-54-237-116-22.compute-1.amazonaws.com:5000')
+
 
 db = load_diabetes()
 X_train, X_test, y_train, y_test = train_test_split(db.data, db.target)
 
-# Create and train models.
-rf = RandomForestRegressor(n_estimators=100, max_depth=6, max_features=3)
-rf.fit(X_train, y_train)
+with mlflow.start_run(run_name='test'):
+    rf = RandomForestRegressor(n_estimators=100, max_depth=6, max_features=3)
+    rf.fit(X_train, y_train)
 
-# Use the model to make predictions on the test dataset.
-predictions = rf.predict(X_test)
-autolog_run = mlflow.last_active_run()
-print(autolog_run)
+    preds = rf.predict(X_test)
+
+    mse = mean_squared_error(y_test, preds)
+    r2 = r2_score(y_test, preds)
+
+    mlflow.log_metric('mean_squared_error', mse)
+    mlflow.log_metric('r2_score', r2)
