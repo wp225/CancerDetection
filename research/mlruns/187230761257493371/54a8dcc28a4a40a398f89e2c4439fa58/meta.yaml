@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/anshujoshi/PycharmProjects/CancerDetection/research/mlruns/187230761257493371/54a8dcc28a4a40a398f89e2c4439fa58/artifacts
+end_time: 1718788505601
+entry_point_name: ''
+experiment_id: '187230761257493371'
+lifecycle_stage: active
+run_id: 54a8dcc28a4a40a398f89e2c4439fa58
+run_name: Default
+run_uuid: 54a8dcc28a4a40a398f89e2c4439fa58
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1718788505592
+status: 4
+tags: []
+user_id: anshujoshi
