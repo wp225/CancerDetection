@@ -40,7 +40,7 @@ class PrepareBaseModel:
 
         full_model.compile(
             optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
-            loss='catagorical_crossentropy',
+            loss=tf.keras.losses.CategoricalCrossentropy(),
             metrics=['accuracy']
         )
 
