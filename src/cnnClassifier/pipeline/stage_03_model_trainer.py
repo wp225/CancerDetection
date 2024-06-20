@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import mlflow
-import config
+# import config
 
 from cnnClassifier import logger
 from cnnClassifier.components.model_trainer import Train

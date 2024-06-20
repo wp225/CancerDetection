@@ -11,4 +11,5 @@ class EvaluationPipeline:
         eval.evaluation()
         eval.log_into_mlflow()
 if __name__ == '__main__':
-    pass
+    obj = EvaluationPipeline()
+    obj.main()

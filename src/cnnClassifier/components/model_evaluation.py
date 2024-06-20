@@ -5,7 +5,7 @@ import tensorflow as tf
 from cnnClassifier.config.configuration import ConfigurationManager
 from cnnClassifier.entity.config_entity import EvaluationConfig
 from cnnClassifier.utils.common import *
-import config
+# import config
 
 class Evaluation:
     def __init__(self, config: EvaluationConfig):

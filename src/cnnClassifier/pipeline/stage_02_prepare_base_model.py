@@ -1,7 +1,6 @@
 import os
 from cnnClassifier.config.configuration import ConfigurationManager
 from cnnClassifier.components.prepare_base_model import PrepareBaseModel
-import config
 class PrepareBaseModelPipeline:
     def __init__(self):
         pass
