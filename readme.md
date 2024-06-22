@@ -18,3 +18,5 @@ MLFLOW_TRACKING_USERNAME=georgejoshi10 \
 MLFLOW_TRACKING_PASSWORD=* \
 
 python script.py
+
+891376978724.dkr.ecr.us-east-1.amazonaws.com/cancerdetection
