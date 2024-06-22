@@ -1,0 +1,102 @@
+<html>
+    <head>
+        <title>Image Upload</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f9;
+                color: #333;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 0;
+                padding: 20px;
+            }
+            h1, h2 {
+                color: #4CAF50;
+            }
+            form {
+                margin-bottom: 20px;
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            input[type="file"] {
+                padding: 5px;
+                margin-top: 10px;
+                margin-bottom: 20px;
+            }
+            button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+            .image-container {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                margin-top: 20px;
+            }
+            .image-container div {
+                text-align: center;
+            }
+            img {
+                max-width: 100%;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            #prediction-result {
+                font-weight: bold;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Upload an Image</h1>
+        <form id="upload-form" action="/upload_image/" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*">
+            <button type="submit">Upload</button>
+        </form>
+        <h2>Prediction Result</h2>
+        <p id="prediction-result"></p>
+        <div class="image-container">
+            <div>
+                <h3>Uploaded Image</h3>
+                <img id="uploaded-image" src="" alt="Uploaded Image" style="display:none;">
+            </div>
+            <div>
+                <h3>Grad-CAM Image</h3>
+                <img id="grad-cam-image" src="" alt="Grad-CAM Image" style="display:none;">
+            </div>
+        </div>
+        <script>
+            document.getElementById('upload-form').onsubmit = async function(event) {
+                event.preventDefault();
+                const formData = new FormData(this);
+                const response = await fetch('/upload_image/', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                document.getElementById('prediction-result').innerText = result.info;
+
+                const uploadedImage = document.getElementById('uploaded-image');
+                uploadedImage.src = URL.createObjectURL(formData.get('file'));
+                uploadedImage.style.display = 'block';
+
+                if (result.grad_cam_image) {
+                    const gradCamImage = document.getElementById('grad-cam-image');
+                    gradCamImage.src = 'data:image/png;base64,' + result.grad_cam_image;
+                    gradCamImage.style.display = 'block';
+                }
+            }
+        </script>
+    </body>
+    </html>

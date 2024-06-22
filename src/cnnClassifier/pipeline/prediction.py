@@ -22,14 +22,16 @@ class PredictionPipeline:
         grad_cam = GradCam(model=model,last_conv_layer=last_conv_layer_name,classifier_layers=classifier_layer_names,
                            original_image=original_image,processed_image=test_image)
         grad_cam_image = grad_cam.cam()
-        plt.imshow(grad_cam_image)
-        plt.axis('off')
-        plt.show()
+
+        # plt.imshow(grad_cam_image)
+        # plt.axis('off')
+        # plt.show()
+
         result = np.argmax(model.predict(test_image),axis=1)
         if result[0] == 1:
-            print('Normal')
+            return 'normal', grad_cam_image
         else:
-            print('Adinocarsinoma')
+            return 'adenocarcinoma',grad_cam_image
 
 if __name__ == '__main__':
     obj = PredictionPipeline('artifacts/data_ingestion/Chest-CT-Scan-data/adenocarcinoma/000005 (3).png')

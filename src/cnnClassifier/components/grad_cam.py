@@ -58,6 +58,7 @@ class GradCam:
         jet_heatmap = keras.preprocessing.image.img_to_array(jet_heatmap)
 
         superimposed_img = jet_heatmap * 0.4 + self.original_image
+
         superimposed_img = keras.preprocessing.image.array_to_img(superimposed_img)
 
         return superimposed_img
