@@ -164,3 +164,6 @@ cython_debug/
 /mlruns/
 /trained_model/
 /training/
+/training/
+
+*.h5
