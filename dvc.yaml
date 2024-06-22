@@ -44,7 +44,7 @@ stages:
       - BATCH_SIZE
       - EPOCH
     outs:
-      - artifacts/training/model.h5
+      - training/model.h5
 
   model_evaluation:
     cmd : python src/cnnClassifier/pipeline/stage_04_model_evaluation.py
@@ -53,7 +53,7 @@ stages:
       - config.py
       - config/config.yaml
       - artifacts/data_ingestion/Chest-CT-Scan-data
-      - artifacts/training/model.h5
+      - training/model.h5
 
     params:
       - IMAGE_SIZE
