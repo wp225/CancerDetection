@@ -1,3 +1,5 @@
+import logging
+
 import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
@@ -10,7 +12,7 @@ class PredictionPipeline:
     def __init__(self,filename):
         self.filename = filename
     def _predict(self):
-        model = load_model(os.path.join('artifacts','training','model.h5'))
+        model = load_model(os.path.join('training','model.h5'))
 
         last_conv_layer_name = 'block5_conv3'
         classifier_layer_names = ['global_average_pooling2d', 'dense', 'dense_1']
@@ -29,6 +31,7 @@ class PredictionPipeline:
 
         result = np.argmax(model.predict(test_image),axis=1)
         if result[0] == 1:
+            logging.info('normal')
             return 'normal', grad_cam_image
         else:
             return 'adenocarcinoma',grad_cam_image

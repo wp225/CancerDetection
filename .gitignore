@@ -167,3 +167,4 @@ cython_debug/
 /training/
 
 *.h5
+/upload/

@@ -2,7 +2,7 @@ import base64
 import io
 import logging
 import os
-
+from cnnClassifier import logger
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import HTMLResponse
 
@@ -20,7 +20,8 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 @app.get("/", response_class=HTMLResponse)
 async def serve_form():
     return """
-    <html>
+    <!DOCTYPE html>
+<html>
 <head>
     <title>Image Upload</title>
     <style>
@@ -71,9 +72,10 @@ async def serve_form():
             text-align: center;
             flex: 1;
         }
-        img {
-            width: 100%;
-            max-width: 400px;
+        .image-container img {
+            width: 400px; /* Set the width */
+            height: 400px; /* Set the height */
+            object-fit: cover; /* Ensure the image covers the entire area */
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -125,6 +127,7 @@ async def serve_form():
     </script>
 </body>
 </html>
+
 """
 
 
@@ -132,14 +135,20 @@ async def serve_form():
 async def upload_image(file: UploadFile = File(...)):
     if file.content_type.startswith("image/"):
         try:
-            # Save the uploaded image file
             file_location = os.path.join(UPLOAD_FOLDER, file.filename)
             with open(file_location, "wb") as f:
                 f.write(await file.read())
-
+            logger.info(file_location)
+            print(file_location)
             classifier = PredictionPipeline(file_location)
-            pred, grad_cam_image = classifier._predict()
-            logging.info(pred)
+            logger.info(classifier)
+            try:
+                pred, grad_cam_image = classifier._predict()
+                print(pred)
+                logging.info(pred)
+            except Exception as e:
+                logger.info('failed to predict')
+                logger.info(e)
 
             buffered = io.BytesIO()
             grad_cam_image.save(buffered, format="PNG")
