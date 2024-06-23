@@ -19,4 +19,4 @@ MLFLOW_TRACKING_PASSWORD=* \
 
 python script.py
 
-891376978724.dkr.ecr.us-east-1.amazonaws.com/cancerdetection
+891376978724.dkr.ecr.us-east-1.amazonaws.com/cancerdetection:latest
