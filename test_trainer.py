@@ -1,10 +1,3 @@
-import mlruns
-import os
-from sklearn.model_selection import train_test_split
-from sklearn.datasets import load_diabetes
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error, r2_score
-
 from datetime import datetime
 
 now = datetime.now()

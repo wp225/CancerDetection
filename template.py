@@ -1,6 +1,6 @@
+import logging
 import os
 from pathlib import Path
-import logging
 
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s]: %(message)s:')
 
@@ -24,16 +24,13 @@ list_of_files = [
     "research/trials.ipynb",
     "templates/index.html"
 
-
 ]
-
 
 for filepath in list_of_files:
     filepath = Path(filepath)
     filedir, filename = os.path.split(filepath)
 
-
-    if filedir !="":
+    if filedir != "":
         os.makedirs(filedir, exist_ok=True)
         logging.info(f"Creating directory; {filedir} for the file: {filename}")
 

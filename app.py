@@ -158,6 +158,6 @@ async def upload_image(file: UploadFile = File(...)):
 
 @app.get("/train")
 def trainRoute():
-    #os.system("python main.py")
+    # os.system("python main.py")
     os.system("dvc repro")
     return "Training done successfully!"
